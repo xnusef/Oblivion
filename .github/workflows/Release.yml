@@ -23,7 +23,7 @@ jobs:
         id: tag
         uses: dawidd6/action-get-tag@v1
         with:
-        strip_v: false
+            strip_v: false
       - name: Build For Windows 64 bits
         run: |
           $env:projectVersion = ${{steps.tag.outputs.tag}} #resultado de lo anterior
