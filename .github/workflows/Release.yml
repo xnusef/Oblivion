@@ -19,16 +19,14 @@ jobs:
         input:
     steps:
       - uses: actions/checkout@v2  
-      - name: Extract tag name
+      - name: Get tag
         id: tag
-        uses: actions/github-script@0.2.0
+        uses: dawidd6/action-get-tag@v1
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            return context.payload.ref.replace(/\/refs\/tags\//, '');
+        strip_v: false
       - name: Build For Windows 64 bits
         run: |
-          $env:projectVersion = ${{ steps.tag.outputs.result }}
+          $env:projectVersion = ${{steps.tag.outputs.tag}} #resultado de lo anterior
           Start-Process -Wait 'C:\Program Files\Unity\Hub\Editor\2021.3.4f1\Editor\Unity.exe' -ArgumentList "-nographics -batchmode -projectPath $env:PROJECT_PATH -executeMethod $env:BUILD_METHOD_WIN64 -quit"
       - name: Create_Setup 
         id: create_setup
