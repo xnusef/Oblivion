@@ -26,7 +26,7 @@ jobs:
             strip_v: false
       - name: Build For Windows 64 bits
         run: |
-          $env:projectVersion = ${{steps.tag.outputs.tag}}
+          $env:projectVersion = "${{steps.tag.outputs.tag}}"
           Start-Process -Wait 'C:\Program Files\Unity\Hub\Editor\2021.3.4f1\Editor\Unity.exe' -ArgumentList "-nographics -batchmode -projectPath $env:PROJECT_PATH -executeMethod $env:BUILD_METHOD_WIN64 -quit"
       - name: Create_Setup 
         id: create_setup
