@@ -1,7 +1,9 @@
 using UnityEngine;
+using Cinemachine;
 
 public class PlayerManager : MonoBehaviour
 {
+    [SerializeField] private CinemachineVirtualCamera vcam;
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private Transform spawnPosition;
     private GameObject player;
@@ -15,9 +17,13 @@ public class PlayerManager : MonoBehaviour
 
     private void SpawnPlayer()
     {
+        vcam = GameObject.Find("CineMachineCamera").GetComponent<CinemachineVirtualCamera>();
+
         player = GameObject.Instantiate(playerPrefab, spawnPosition.position, Quaternion.identity);
         player.transform.SetParent(this.transform);
         playerController = player.GetComponent<PlayerController>();
+
+        vcam.m_Follow = player.transform;
     }
 
     public void ReceiveInput(string type, int value)
