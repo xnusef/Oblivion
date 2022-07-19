@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
+using UnityEngine.UIElements;
 using TMPro;
 
 public class MenuManager : MonoBehaviour
@@ -9,7 +11,7 @@ public class MenuManager : MonoBehaviour
 
     private List<GameObject> menus = new List<GameObject>();
     private GameObject activeMenu;
-    private GameObject focusedButton;
+    private EventSystem eventSystem;
     public GameObject DefaultMenu;
     public OptionsManager OptionManager;
 
@@ -18,9 +20,9 @@ public class MenuManager : MonoBehaviour
         getListOfMenus();
         setDefaultMenu();
         OptionManager.LoadSettings();
-
         activeMenu = DefaultMenu;
-        focusedButton = null;
+
+        eventSystem = EventSystem.current;
     }
 
     private void getListOfMenus() {
@@ -52,6 +54,8 @@ public class MenuManager : MonoBehaviour
 
         oldActive.SetActive(false);
         activeMenu.SetActive(true);
+
+        eventSystem.SetSelectedGameObject(activeMenu.GetComponent<MenuUnitControls>().defaultSelected);
     }
 
     public void GotoScene(int index){
@@ -68,23 +72,10 @@ public class MenuManager : MonoBehaviour
         UnityEditor.EditorApplication.isPlaying = false;
     }
 
-    public void LeavingFocusedButton(GameObject leaving)
+    public void Focus(GameObject toChangeState, bool focus)
     {
-
-        Debug.Log("Leaving: " + leaving.name);
-        focusedButton = null;
-        //oldFocused.GetComponentInChildren<Material>().SetFloat(ShaderUtilities.ID_FaceDilate, .07f);
-        //focusedButton.GetComponentInChildren<Material>().SetFloat(ShaderUtilities.ID_FaceDilate, .27f);
-    }
-
-    public void FocusingButton(GameObject focusing)
-    {
-
-        Debug.Log("Focusing: " + focusing.name);
-        focusedButton = focusing;
-
-        //oldFocused.GetComponentInChildren<Material>().SetFloat(ShaderUtilities.ID_FaceDilate, .07f);
-        //focusedButton.GetComponentInChildren<Material>().SetFloat(ShaderUtilities.ID_FaceDilate, .27f);
+        if (focus) toChangeState.GetComponentInChildren<TextMeshProUGUI>().fontMaterial.SetFloat(ShaderUtilities.ID_FaceDilate, .27f);
+        else toChangeState.GetComponentInChildren<TextMeshProUGUI>().fontMaterial.SetFloat(ShaderUtilities.ID_FaceDilate, .07f);
     }
 
 }
