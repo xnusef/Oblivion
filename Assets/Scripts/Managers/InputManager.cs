@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
+    [HideInInspector] public PlayerManager PM;
     public static InputManager IM;
 
     void Awake()
@@ -16,51 +17,51 @@ public class InputManager : MonoBehaviour
 
     void OnHorizontalMovement(InputValue value)
     {
-        Debug.Log(value.Get());
+        PM.ReceiveInput("Move", int.Parse(value.Get().ToString()));
     }
 
     void OnJump()
     {
-        Debug.Log("Jump");
+        PM.ReceiveInput("Jump", 0);
     }
 
     void OnDrop()
     {
-        Debug.Log("Drop");
+        PM.ReceiveInput("Drop", 0);
     }
 
     void OnAttack()
     {
-        Debug.Log("Attack");
+        PM.ReceiveInput("Attack", 0);
     }
 
     void OnParry()
     {
-        Debug.Log("Parry");
+        PM.ReceiveInput("Parry", 0);
     }
 
     void OnPause()
     {
-        Debug.Log("Pause");
+        PM.ReceiveInput("Pause", 0);
     }
 
     void OnAltF4()
     {
-        Debug.Log("AltF4");
+        PM.ReceiveInput("AltF4", 0);
     }
 
     void OnPrevious()
     {
-        Debug.Log("Previous");
+        PM.ReceiveInput("Previous", 0);
     }
 
     void OnNext()
     {
-        Debug.Log("Next");
+        PM.ReceiveInput("Next", 0);
     }
 
     void OnEnter()
     {
-        Debug.Log("Enter");
+        PM.ReceiveInput("Enter", 0);
     }
 }
