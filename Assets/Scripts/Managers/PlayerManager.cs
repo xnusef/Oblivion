@@ -53,7 +53,7 @@ public class PlayerManager : MonoBehaviour
             case "AltF4":
                 break;
             default:
-                Debug.Log(type + " " + value.ToString());
+                Debug.LogError(type + " " + value.ToString() + ": No es un tipo válido");
                 break;
         }
     }
