@@ -1,13 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
-
 public class MenuManager : MonoBehaviour
 {
-    private GameObject defaultMenu = null;
     public OptionsManager OptionManager;
+    private GameObject defaultMenu = null;
     private List<GameObject> menus = new List<GameObject>();
     private GameObject activeMenu;
     private UINavigationManager uiNavigationManager;
@@ -27,7 +24,6 @@ public class MenuManager : MonoBehaviour
 
         foreach (GameObject menu in menus)
         {
-            Debug.Log(newActive.name + menu.name);
             if (menu.Equals(newActive))
             {
                 isMenuOnList = true;
@@ -45,7 +41,7 @@ public class MenuManager : MonoBehaviour
 
         activeMenu = newActive;
 
-        uiNavigationManager.SetupMenu(activeMenu);
+        uiNavigationManager.SetSelected(activeMenu.GetComponent<MenuUnitControls>().defaultSelected);
     }
 
     public void GotoScene(int index)

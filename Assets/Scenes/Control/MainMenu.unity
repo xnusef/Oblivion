@@ -1101,7 +1101,6 @@ GameObject:
   - component: {fileID: 955154014}
   - component: {fileID: 955154015}
   - component: {fileID: 955154017}
-  - component: {fileID: 955154016}
   m_Layer: 5
   m_Name: slideVolume
   m_TagString: Untagged
@@ -1196,26 +1195,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!95 &955154016
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 955154013}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 90ff22c77ca2d0d47b078d39c020c466, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &955154017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1241,7 +1220,6 @@ GameObject:
   - component: {fileID: 960617599}
   - component: {fileID: 960617598}
   - component: {fileID: 960617601}
-  - component: {fileID: 960617602}
   m_Layer: 5
   m_Name: btnNo
   m_TagString: Untagged
@@ -1376,26 +1354,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33e9473f38e22f34a93218c1cc8e71d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!95 &960617602
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 960617596}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 90ff22c77ca2d0d47b078d39c020c466, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1175144054
 GameObject:
   m_ObjectHideFlags: 0
@@ -1409,7 +1367,6 @@ GameObject:
   - component: {fileID: 1175144057}
   - component: {fileID: 1175144056}
   - component: {fileID: 1175144060}
-  - component: {fileID: 1175144061}
   m_Layer: 5
   m_Name: btnBack
   m_TagString: Untagged
@@ -1556,26 +1513,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33e9473f38e22f34a93218c1cc8e71d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!95 &1175144061
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1175144054}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 90ff22c77ca2d0d47b078d39c020c466, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1200119817
 GameObject:
   m_ObjectHideFlags: 0
@@ -1665,7 +1602,6 @@ GameObject:
   - component: {fileID: 1278482891}
   - component: {fileID: 1278482890}
   - component: {fileID: 1278482894}
-  - component: {fileID: 1278482895}
   m_Layer: 5
   m_Name: btnQuit
   m_TagString: Untagged
@@ -1800,26 +1736,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33e9473f38e22f34a93218c1cc8e71d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!95 &1278482895
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1278482888}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 90ff22c77ca2d0d47b078d39c020c466, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1337584681
 GameObject:
   m_ObjectHideFlags: 0
@@ -2385,7 +2301,6 @@ GameObject:
   - component: {fileID: 1638192547}
   - component: {fileID: 1638192546}
   - component: {fileID: 1638192549}
-  - component: {fileID: 1638192550}
   m_Layer: 5
   m_Name: btnPlay
   m_TagString: Untagged
@@ -2520,26 +2435,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33e9473f38e22f34a93218c1cc8e71d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!95 &1638192550
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1638192544}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 90ff22c77ca2d0d47b078d39c020c466, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1664304219
 GameObject:
   m_ObjectHideFlags: 0
@@ -2753,7 +2648,7 @@ MonoBehaviour:
   m_TrackedDevicePositionAction: {fileID: 6564999863303420839, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_DeselectOnBackgroundClick: 1
-  m_PointerBehavior: 2
+  m_PointerBehavior: 1
 --- !u!1 &1677678201
 GameObject:
   m_ObjectHideFlags: 0
@@ -2843,7 +2738,6 @@ GameObject:
   - component: {fileID: 1713068505}
   - component: {fileID: 1713068504}
   - component: {fileID: 1713068507}
-  - component: {fileID: 1713068508}
   m_Layer: 5
   m_Name: btnYes
   m_TagString: Untagged
@@ -2978,26 +2872,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33e9473f38e22f34a93218c1cc8e71d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!95 &1713068508
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1713068502}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 90ff22c77ca2d0d47b078d39c020c466, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1777075030
 GameObject:
   m_ObjectHideFlags: 0
@@ -3010,8 +2884,8 @@ GameObject:
   - component: {fileID: 1777075033}
   - component: {fileID: 1777075032}
   - component: {fileID: 1777075031}
-  - component: {fileID: 1777075035}
   - component: {fileID: 1777075036}
+  - component: {fileID: 1777075035}
   m_Layer: 5
   m_Name: Menu
   m_TagString: Untagged
@@ -3405,7 +3279,6 @@ GameObject:
   - component: {fileID: 2051203060}
   - component: {fileID: 2051203059}
   - component: {fileID: 2051203063}
-  - component: {fileID: 2051203064}
   m_Layer: 5
   m_Name: btnOptions
   m_TagString: Untagged
@@ -3540,23 +3413,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33e9473f38e22f34a93218c1cc8e71d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!95 &2051203064
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2051203057}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 90ff22c77ca2d0d47b078d39c020c466, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
