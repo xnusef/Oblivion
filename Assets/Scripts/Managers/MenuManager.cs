@@ -1,90 +1,61 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using TMPro;
 
 public class MenuManager : MonoBehaviour
 {
-
-    private List<GameObject> menus = new List<GameObject>();
-    public List<GameObject> currentMenuControls = new List<GameObject>();
-    private GameObject activeMenu, activeButton;
-    public EventSystem EventSystem;
-    public GameObject DefaultMenu;
+    private GameObject defaultMenu = null;
     public OptionsManager OptionManager;
+    private List<GameObject> menus = new List<GameObject>();
+    private GameObject activeMenu;
+    private UINavigationManager uiNavigationManager;
 
     private void Start()
     {
+        uiNavigationManager = GetComponent<UINavigationManager>();
         getListOfMenus();
-        setDefaultMenu();
-        getListOfControlsFromMenu(DefaultMenu);
+        SetActiveMenu(defaultMenu);
         OptionManager.LoadSettings();
-        activeMenu = DefaultMenu;
-        activeButton = activeMenu.GetComponent<MenuUnitControls>().defaultSelected;
-        EventSystem = EventSystem.current;
     }
 
-    private void getListOfControlsFromMenu(GameObject menu)
+    public void SetActiveMenu(GameObject newActive)
     {
-        for (int i = 0; i < menu.transform.childCount; i++) {
-            if (menu.transform.GetChild(i).TryGetComponent(out Button btn) || menu.transform.GetChild(i).TryGetComponent(out Slider slider)) {
-                Debug.Log("Found" + menu.transform.GetChild(i).gameObject.name);
-                currentMenuControls.Add(menu.transform.GetChild(i).gameObject);
-            }
-        }
-    }
 
-    private void getListOfMenus() {
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            if (transform.GetChild(i).tag == "Menu")
-            {
-                menus.Add(transform.GetChild(i).gameObject);
-                //Debug.Log(transform.GetChild(i).name);
-            }
-        }
-    }
+        bool isMenuOnList = false;
 
-    public List<GameObject> GetNotSelected(GameObject selected) {
-        List<GameObject> notSelected = new List<GameObject>();
-        foreach(GameObject obj in currentMenuControls)
-        {
-            if (!obj.Equals(selected)) notSelected.Add(obj);
-        }
-        return notSelected;
-    }
-
-    private void setDefaultMenu()
-    {
         foreach (GameObject menu in menus)
         {
-            if (menu.Equals(DefaultMenu)) { 
-                menu.SetActive(true);
+            Debug.Log(newActive.name + menu.name);
+            if (menu.Equals(newActive))
+            {
+                isMenuOnList = true;
+                break;
             }
-            else menu.SetActive(false);
+        }
+        if (!isMenuOnList)
+        {
+            Debug.Log("Menu: " + newActive.name + " couldnt be found!");
+            return;
         }
 
-    }
+        activeMenu?.SetActive(false);
+        newActive.SetActive(true);
 
-    public void SetActiveMenu(GameObject newActive) {
-        GameObject oldActive = activeMenu;
         activeMenu = newActive;
 
-        oldActive.SetActive(false);
-        activeMenu.SetActive(true);
-
-        getListOfControlsFromMenu(activeMenu);
-
-        EventSystem.SetSelectedGameObject(activeMenu.GetComponent<MenuUnitControls>().defaultSelected);
+        uiNavigationManager.SetupMenu(activeMenu);
     }
 
-    public void GotoScene(int index){
-        try{
+    public void GotoScene(int index)
+    {
+        try
+        {
             SceneManager.LoadScene(index);
-        } catch (UnityException){
+        }
+        catch (UnityException)
+        {
             Debug.Log("Scene does not exist");
         }
     }
@@ -95,14 +66,24 @@ public class MenuManager : MonoBehaviour
         UnityEditor.EditorApplication.isPlaying = false;
     }
 
-    public void Focus(GameObject toChangeState, bool focus)
+    private void getListOfMenus()
     {
-        if (focus) {
-            activeButton = toChangeState;
-            activeButton.GetComponentInChildren<TextMeshProUGUI>().fontMaterial.SetFloat(ShaderUtilities.ID_FaceDilate, .27f);
-        }
-        else { toChangeState.GetComponentInChildren<TextMeshProUGUI>().fontMaterial.SetFloat(ShaderUtilities.ID_FaceDilate, .07f); }
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            GameObject child = transform.GetChild(i).gameObject;
 
+            if (child.GetComponent<MenuCustomTags>() != null && child.GetComponent<MenuCustomTags>().HasTag("Menu"))
+            {
+                menus.Add(transform.GetChild(i).gameObject);
+                if (defaultMenu == null && child.GetComponent<MenuCustomTags>().HasTag("Default"))
+                {
+                    defaultMenu = child;
+                }
+            }
+
+        }
+
+        Debug.Log(defaultMenu.name);
     }
 
 }

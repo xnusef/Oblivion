@@ -16,29 +16,22 @@ public class ButtonController : MonoBehaviour, IPointerExitHandler, IPointerEnte
         text = transform.GetComponentInChildren<TextMeshProUGUI>();
         animator = transform.GetComponent<Animator>();
         menuManager = transform.GetComponentInParent<MenuManager>();
-        Debug.Log(menuManager.name);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         animator.SetTrigger("Selected");
-        foreach(GameObject obj in menuManager.GetNotSelected(this.gameObject))
-        {
-            obj.GetComponent<ButtonController>().animator.SetTrigger("Normal");
-        }
-        Debug.Log("Pointer Entering: " + this.name);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         animator.SetTrigger("Normal");
-        Debug.Log("Pointer Leaving: " + this.name);
     }
 
-    private void OnAnimatorMove()
-    {
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Normal")) menuManager.Focus(this.gameObject, false);
-        else if (animator.GetCurrentAnimatorStateInfo(0).IsName("Selected")) menuManager.Focus(this.gameObject, true);
-    }
+    //private void OnAnimatorMove()
+    //{
+    //    if (animator.GetCurrentAnimatorStateInfo(0).IsName("Normal")) menuManager.Focus(this.gameObject, false);
+    //    else if (animator.GetCurrentAnimatorStateInfo(0).IsName("Selected")) menuManager.Focus(this.gameObject, true);
+    //}
 
 }
