@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 using TMPro;
 
 public class MenuManager : MonoBehaviour
 {
 
     private List<GameObject> menus = new List<GameObject>();
-    private GameObject activeMenu;
-    private EventSystem eventSystem;
+    public List<GameObject> currentMenuControls = new List<GameObject>();
+    private GameObject activeMenu, activeButton;
+    public EventSystem EventSystem;
     public GameObject DefaultMenu;
     public OptionsManager OptionManager;
 
@@ -19,10 +20,21 @@ public class MenuManager : MonoBehaviour
     {
         getListOfMenus();
         setDefaultMenu();
+        getListOfControlsFromMenu(DefaultMenu);
         OptionManager.LoadSettings();
         activeMenu = DefaultMenu;
+        activeButton = activeMenu.GetComponent<MenuUnitControls>().defaultSelected;
+        EventSystem = EventSystem.current;
+    }
 
-        eventSystem = EventSystem.current;
+    private void getListOfControlsFromMenu(GameObject menu)
+    {
+        for (int i = 0; i < menu.transform.childCount; i++) {
+            if (menu.transform.GetChild(i).TryGetComponent(out Button btn) || menu.transform.GetChild(i).TryGetComponent(out Slider slider)) {
+                Debug.Log("Found" + menu.transform.GetChild(i).gameObject.name);
+                currentMenuControls.Add(menu.transform.GetChild(i).gameObject);
+            }
+        }
     }
 
     private void getListOfMenus() {
@@ -34,6 +46,15 @@ public class MenuManager : MonoBehaviour
                 //Debug.Log(transform.GetChild(i).name);
             }
         }
+    }
+
+    public List<GameObject> GetNotSelected(GameObject selected) {
+        List<GameObject> notSelected = new List<GameObject>();
+        foreach(GameObject obj in currentMenuControls)
+        {
+            if (!obj.Equals(selected)) notSelected.Add(obj);
+        }
+        return notSelected;
     }
 
     private void setDefaultMenu()
@@ -55,7 +76,9 @@ public class MenuManager : MonoBehaviour
         oldActive.SetActive(false);
         activeMenu.SetActive(true);
 
-        eventSystem.SetSelectedGameObject(activeMenu.GetComponent<MenuUnitControls>().defaultSelected);
+        getListOfControlsFromMenu(activeMenu);
+
+        EventSystem.SetSelectedGameObject(activeMenu.GetComponent<MenuUnitControls>().defaultSelected);
     }
 
     public void GotoScene(int index){
@@ -74,8 +97,12 @@ public class MenuManager : MonoBehaviour
 
     public void Focus(GameObject toChangeState, bool focus)
     {
-        if (focus) toChangeState.GetComponentInChildren<TextMeshProUGUI>().fontMaterial.SetFloat(ShaderUtilities.ID_FaceDilate, .27f);
-        else toChangeState.GetComponentInChildren<TextMeshProUGUI>().fontMaterial.SetFloat(ShaderUtilities.ID_FaceDilate, .07f);
+        if (focus) {
+            activeButton = toChangeState;
+            activeButton.GetComponentInChildren<TextMeshProUGUI>().fontMaterial.SetFloat(ShaderUtilities.ID_FaceDilate, .27f);
+        }
+        else { toChangeState.GetComponentInChildren<TextMeshProUGUI>().fontMaterial.SetFloat(ShaderUtilities.ID_FaceDilate, .07f); }
+
     }
 
 }

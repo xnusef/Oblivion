@@ -22,6 +22,10 @@ public class ButtonController : MonoBehaviour, IPointerExitHandler, IPointerEnte
     public void OnPointerEnter(PointerEventData eventData)
     {
         animator.SetTrigger("Selected");
+        foreach(GameObject obj in menuManager.GetNotSelected(this.gameObject))
+        {
+            obj.GetComponent<ButtonController>().animator.SetTrigger("Normal");
+        }
         Debug.Log("Pointer Entering: " + this.name);
     }
 
