@@ -1,24 +1,20 @@
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements.Experimental;
 
 public class PlayerState : MonoBehaviour
 {
-    private bool grounded;
-    private float timeGrounded;
+    private Dictionary<string, bool> dictionary;
 
-    public bool GetGrounded()
+    void Start()
     {
-        return grounded;
+        dictionary = new Dictionary<string, bool>();
+        dictionary.Add("grounded", false);
+        dictionary.Add("charging", false);
     }
-    public void SetGrounded(bool value)
-    {
-        grounded = value;
-        if (value)
-            timeGrounded = Time.time;
-    }
+    public bool GetValue(string name) { return dictionary[name]; }
 
-    public float GetTimeGrounded()
+    public void SetValue(string name, bool value)
     {
-        return timeGrounded;
+        dictionary[name] = value;
     }
 }

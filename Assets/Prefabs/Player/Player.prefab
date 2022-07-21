@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &228453506932016671
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8617374840920405776}
+  m_Layer: 7
+  m_Name: ShootPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8617374840920405776
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 228453506932016671}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.615, y: 0.174, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9055926257494952331}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3586413581489933701
 GameObject:
   m_ObjectHideFlags: 0
@@ -68,6 +99,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2569911467624875922}
+  - {fileID: 8617374840920405776}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -176,6 +208,7 @@ MonoBehaviour:
   pJump: {fileID: 0}
   pAttack: {fileID: 0}
   pState: {fileID: 0}
+  maxHealth: 3
 --- !u!114 &5952161612262554539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,6 +223,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Direction: 0
   speed: 6
+  minImpulsedTime: 0.5
 --- !u!114 &2282584682625198289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,7 +238,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpHeight: 5
   groundCheck: {fileID: 2569911467624875922}
-  checkRadius: 0.2
+  checkRadius: 0.05
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -220,6 +254,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef809580492317a419a592cec5a97899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  knifePrefab: {fileID: 6208032847235424216, guid: 3feb0b8e691b0254eb7011b0994ff0d5, type: 3}
+  shootPoint: {fileID: 8617374840920405776}
   maxKnifes: 2
   maxChargeTime: 3
   defaultPower: 1

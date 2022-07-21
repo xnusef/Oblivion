@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class PlayerController : MonoBehaviour
 {
@@ -6,6 +7,8 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public PlayerJump pJump;
     [HideInInspector] public PlayerAttack pAttack;
     [HideInInspector] public PlayerState pState;
+    [SerializeField] private int maxHealth = 3;
+    private float health;
 
     public void Start()
     {
@@ -13,5 +16,23 @@ public class PlayerController : MonoBehaviour
         pJump = this.GetComponent<PlayerJump>();
         pAttack = this.GetComponent<PlayerAttack>();
         pState = this.GetComponent<PlayerState>();
+        setMaxHealth();
+    }
+    
+    private void setMaxHealth()
+    {
+        health = maxHealth;
+    }
+
+    public void TakeDamage(int amount)
+    {
+        health -= amount;
+        if (health <= 0)
+            die();        
+    }
+
+    private void die()
+    {
+        Destroy(this.gameObject);
     }
 }

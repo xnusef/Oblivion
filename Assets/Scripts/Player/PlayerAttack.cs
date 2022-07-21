@@ -1,10 +1,11 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Processors;
 
 public class PlayerAttack : MonoBehaviour
 {
     [HideInInspector] private PlayerController pController;
+    [SerializeField] private GameObject knifePrefab;
+    [SerializeField] private Transform shootPoint;
     [Header("Knife Settings")]
         [SerializeField] private int maxKnifes = 2;
         [SerializeField] private float maxChargeTime = 1f;
@@ -18,6 +19,11 @@ public class PlayerAttack : MonoBehaviour
     private bool clickReleased = true;
     private Camera cam;
 
+    public void RestoreKnife(int amount)
+    {
+        knifes += amount;
+    }
+
     void Start()
     {
         pController = this.GetComponent<PlayerController>();
@@ -30,10 +36,7 @@ public class PlayerAttack : MonoBehaviour
         if (!clickReleased && power <= maxPower)
             power = Mathf.Clamp(power + Time.deltaTime, 0f, maxPower);
         if (!clickReleased && Time.time >= chargeTime)
-        {
-            clickReleased = true;
-            shoot(Vector2.zero);
-        }
+            released();
     }
 
     public void KnifeToEnemy(int value)
@@ -46,34 +49,50 @@ public class PlayerAttack : MonoBehaviour
 
     private void pressed()
     {
-        power = defaultPower;
-        clickReleased = false;
-        chargeTime = Time.time + maxChargeTime;
+        if (knifes > 0)
+        {
+            
+            power = defaultPower;
+            clickReleased = false;
+            pController.pState.SetValue("charging", true);
+            chargeTime = Time.time + maxChargeTime;
+        }
     }
 
     private void released()
     {
-        if (!clickReleased)
+        if (!clickReleased && knifes > 0)
         {
+            knifes -= 1;
+            pController.pState.SetValue("charging", false);
             clickReleased = true;
-            shoot(Vector2.zero);
+            Vector2 point = cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            shoot(point);
         }
     }
 
     public void KnifeToMouse()
     {
-        power = defaultPower;
-        Vector2 point = cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-        shoot(point);
+        if (clickReleased && knifes > 0)
+        {
+            knifes -= 1;
+            power = defaultPower;
+            Vector2 point = cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            shoot(point);
+        }
     }
 
     private void shoot(Vector3 point)
     {
-        if (knifes > 0)
-        {
-            knifes -= 1;
-            Vector3 knockbackDir = (this.transform.position - point).normalized;
-            pController.pMovement.Impulse(knockbackDir * knockback * 10);
-        }
+        knockBack(point);
+        GameObject knife = GameObject.Instantiate(knifePrefab, shootPoint.position, Quaternion.identity, GameObject.Find("PlayerBullets")?.transform);
+        knife.GetComponent<Knife>().SetDirection(point, power, this);
+    }
+
+    private void knockBack(Vector3 point)
+    {
+        Vector3 knockbackDir = (this.transform.position - point).normalized;
+        float multiplier = Mathf.Clamp(power, 0, 2f);
+        pController.pMovement.Impulse(knockbackDir * knockback * 10 * multiplier);
     }
 }

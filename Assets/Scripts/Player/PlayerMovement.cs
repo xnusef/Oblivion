@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -5,13 +6,16 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector] private PlayerController pController;
     [HideInInspector] public float Direction;
     [SerializeField] private float speed;
+    [SerializeField] private float minImpulsedTime = 0.5f;
     private Rigidbody2D rb;
     private bool impulsed = false;
+    private float timeImpulsed = 0f;
 
     public void Impulse(Vector2 force)
     {
         rb.AddForce(force, ForceMode2D.Impulse);
         impulsed = true;
+        timeImpulsed = Time.time + minImpulsedTime;
     }
 
     void Start()
@@ -22,14 +26,19 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        setVelocity();
+        if (pController.pState != null && !pController.pState.GetValue("charging"))
+            setVelocity(new Vector2(Direction * speed, rb.velocity.y));
+        else
+            rb.velocity = Vector2.zero;
     }
 
-    private void setVelocity()
+    private void setVelocity(Vector2 velocity)
     {
         if (!impulsed)
-            rb.velocity = new Vector2(Direction * speed, rb.velocity.y);
-        else if (impulsed && (Mathf.Abs(rb.velocity.x) <= 1 || Time.time <= pController.pState.GetTimeGrounded() + 0.2f))
+            rb.velocity = velocity;
+        else if (!pController.pState.GetValue("charging"))
+            rb.AddForce(Vector2.right * Direction * speed * 100);
+        if (impulsed && Time.time >= timeImpulsed && pController.pState.GetValue("grounded"))
             impulsed = false;
     }
 }
