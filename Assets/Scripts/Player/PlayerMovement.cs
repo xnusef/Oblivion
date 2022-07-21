@@ -1,6 +1,3 @@
-using System.Diagnostics.Tracing;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -25,10 +22,10 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        SetVelocity();
+        setVelocity();
     }
 
-    private void SetVelocity()
+    private void setVelocity()
     {
         if (!impulsed)
             rb.velocity = new Vector2(Direction * speed, rb.velocity.y);

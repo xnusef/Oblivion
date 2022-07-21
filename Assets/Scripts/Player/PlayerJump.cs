@@ -20,10 +20,10 @@ public class PlayerJump : MonoBehaviour
 
     void Update()
     {
-        CheckGround();
+        checkGround();
     }
 
-    private void CheckGround()
+    private void checkGround()
     {
         bool grounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundLayer);
         if (pController.pState.GetGrounded() != grounded)
