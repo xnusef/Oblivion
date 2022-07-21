@@ -1,63 +1,57 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using TMPro;
-
 public class MenuManager : MonoBehaviour
 {
-
+    public OptionsManager OptionManager;
+    private GameObject defaultMenu = null;
     private List<GameObject> menus = new List<GameObject>();
     private GameObject activeMenu;
-    private GameObject focusedButton;
-    public GameObject DefaultMenu;
-    public OptionsManager OptionManager;
+    private UINavigationManager uiNavigationManager;
 
     private void Start()
     {
+        uiNavigationManager = GetComponent<UINavigationManager>();
         getListOfMenus();
-        setDefaultMenu();
+        SetActiveMenu(defaultMenu);
         OptionManager.LoadSettings();
-
-        activeMenu = DefaultMenu;
-        focusedButton = null;
     }
 
-    private void getListOfMenus() {
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            if (transform.GetChild(i).tag == "Menu")
-            {
-                menus.Add(transform.GetChild(i).gameObject);
-                //Debug.Log(transform.GetChild(i).name);
-            }
-        }
-    }
-
-    private void setDefaultMenu()
+    public void SetActiveMenu(GameObject newActive)
     {
+
+        bool isMenuOnList = false;
+
         foreach (GameObject menu in menus)
         {
-            if (menu.Equals(DefaultMenu)) { 
-                menu.SetActive(true);
+            if (menu.Equals(newActive))
+            {
+                isMenuOnList = true;
+                break;
             }
-            else menu.SetActive(false);
+        }
+        if (!isMenuOnList)
+        {
+            Debug.Log("Menu: " + newActive.name + " couldnt be found!");
+            return;
         }
 
-    }
+        activeMenu?.SetActive(false);
+        newActive.SetActive(true);
 
-    public void SetActiveMenu(GameObject newActive) {
-        GameObject oldActive = activeMenu;
         activeMenu = newActive;
 
-        oldActive.SetActive(false);
-        activeMenu.SetActive(true);
+        uiNavigationManager.SetSelected(activeMenu.GetComponent<MenuUnitControls>().defaultSelected);
     }
 
-    public void GotoScene(int index){
-        try{
+    public void GotoScene(int index)
+    {
+        try
+        {
             SceneManager.LoadScene(index);
-        } catch (UnityException){
+        }
+        catch (UnityException)
+        {
             Debug.Log("Scene does not exist");
         }
     }
@@ -68,23 +62,24 @@ public class MenuManager : MonoBehaviour
         UnityEditor.EditorApplication.isPlaying = false;
     }
 
-    public void LeavingFocusedButton(GameObject leaving)
+    private void getListOfMenus()
     {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            GameObject child = transform.GetChild(i).gameObject;
 
-        Debug.Log("Leaving: " + leaving.name);
-        focusedButton = null;
-        //oldFocused.GetComponentInChildren<Material>().SetFloat(ShaderUtilities.ID_FaceDilate, .07f);
-        //focusedButton.GetComponentInChildren<Material>().SetFloat(ShaderUtilities.ID_FaceDilate, .27f);
-    }
+            if (child.GetComponent<MenuCustomTags>() != null && child.GetComponent<MenuCustomTags>().HasTag("Menu"))
+            {
+                menus.Add(transform.GetChild(i).gameObject);
+                if (defaultMenu == null && child.GetComponent<MenuCustomTags>().HasTag("Default"))
+                {
+                    defaultMenu = child;
+                }
+            }
 
-    public void FocusingButton(GameObject focusing)
-    {
+        }
 
-        Debug.Log("Focusing: " + focusing.name);
-        focusedButton = focusing;
-
-        //oldFocused.GetComponentInChildren<Material>().SetFloat(ShaderUtilities.ID_FaceDilate, .07f);
-        //focusedButton.GetComponentInChildren<Material>().SetFloat(ShaderUtilities.ID_FaceDilate, .27f);
+        Debug.Log(defaultMenu.name);
     }
 
 }
