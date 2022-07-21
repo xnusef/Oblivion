@@ -1,5 +1,6 @@
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
+
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private bool impulsed = false;
     private float timeImpulsed = 0f;
+    private Camera cam;
 
     public void Impulse(Vector2 force)
     {
@@ -22,6 +24,23 @@ public class PlayerMovement : MonoBehaviour
     {
         pController = this.GetComponent<PlayerController>();
         rb = this.GetComponent<Rigidbody2D>();
+        cam = GameObject.Find("Main Camera").GetComponent<Camera>();
+    }
+
+    void Update()
+    {
+        updateFacingDir();
+    }
+
+    private void updateFacingDir()
+    {
+        Vector2 point = cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        float distanceX = point.x - transform.position.x;
+        if ((distanceX > 0 && !pController.pState.GetValue("facingRight")) || (distanceX < 0 && pController.pState.GetValue("facingRight")))
+        {
+            this.transform.Rotate(0f, 180f, 0f);
+            pController.pState.SetValue("facingRight", distanceX > 0);
+        }
     }
 
     void FixedUpdate()

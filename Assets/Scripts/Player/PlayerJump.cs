@@ -26,6 +26,8 @@ public class PlayerJump : MonoBehaviour
     private void checkGround()
     {
         bool grounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundLayer);
+        if (grounded)
+            pController.pAttack.RestoreKnifes();
         if (pController.pState.GetValue("grounded") != grounded)
             pController.pState.SetValue("grounded", grounded);
     }

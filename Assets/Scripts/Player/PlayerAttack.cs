@@ -11,23 +11,25 @@ public class PlayerAttack : MonoBehaviour
         [SerializeField] private float maxChargeTime = 1f;
         [SerializeField] private float defaultPower = 1f;
         [SerializeField] private float maxPower = 3f;
+        [SerializeField] private float timeBeforeRestore = 0.5f;
     [Header("Other Settings")]
         [SerializeField] private float knockback = 20f; // * 10
     private int knifes;
     private float chargeTime = 0;
     private float power;
     private bool clickReleased = true;
+    private float timeFirstShoot;
     private Camera cam;
 
-    public void RestoreKnife(int amount)
+    public void RestoreKnifes()
     {
-        knifes += amount;
+        if (Time.time >= (timeFirstShoot + timeBeforeRestore))
+            knifes = maxKnifes;
     }
 
     void Start()
     {
         pController = this.GetComponent<PlayerController>();
-        knifes = maxKnifes;
         cam = GameObject.Find("Main Camera").GetComponent<Camera>();
     }
 
@@ -51,7 +53,6 @@ public class PlayerAttack : MonoBehaviour
     {
         if (knifes > 0)
         {
-            
             power = defaultPower;
             clickReleased = false;
             pController.pState.SetValue("charging", true);
@@ -87,6 +88,10 @@ public class PlayerAttack : MonoBehaviour
         knockBack(point);
         GameObject knife = GameObject.Instantiate(knifePrefab, shootPoint.position, Quaternion.identity, GameObject.Find("PlayerBullets")?.transform);
         knife.GetComponent<Knife>().SetDirection(point, power, this);
+        if (knifes == (maxKnifes - 1))
+        {
+            timeFirstShoot = Time.time;
+        }
     }
 
     private void knockBack(Vector3 point)

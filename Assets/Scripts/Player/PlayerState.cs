@@ -10,6 +10,7 @@ public class PlayerState : MonoBehaviour
         dictionary = new Dictionary<string, bool>();
         dictionary.Add("grounded", false);
         dictionary.Add("charging", false);
+        dictionary.Add("facingRight", true);
     }
     public bool GetValue(string name) { return dictionary[name]; }
 

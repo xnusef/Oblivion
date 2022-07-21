@@ -1,3 +1,4 @@
+using UnityEditor.Callbacks;
 using UnityEngine;
 
 public class Knife : MonoBehaviour
@@ -6,6 +7,7 @@ public class Knife : MonoBehaviour
     [SerializeField] private float speed = 40f;
     private PlayerAttack pAttack;
     private float power = 0;
+    bool colisioned = false;
 
     public void SetDirection(Vector3 point, float power, PlayerAttack playerAttack)
     {
@@ -24,20 +26,15 @@ public class Knife : MonoBehaviour
 
     void Update()
     {
-        this.transform.Translate(Vector3.right * speed * Time.deltaTime);
+        if (!colisioned)
+            this.transform.Translate(Vector3.right * speed * Time.deltaTime);  
     }
 
     void OnCollisionEnter2D(Collision2D col)
     {
         if (col.gameObject.tag.Equals("Enemy"))
-        {
             col.gameObject.GetComponent<EnemyHealth>().TakeDamage(damage * power);
-        }
+        colisioned = true;
         Destroy(this.gameObject);
-    }
-
-    void OnDestroy()
-    {
-        pAttack.RestoreKnife(1);
     }
 }
