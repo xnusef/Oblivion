@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class ButtonManager : MonoBehaviour, IPointerExitHandler, IPointerEnterHandler
+public class SelectableController : MonoBehaviour, IPointerExitHandler, IPointerEnterHandler
 {
     private TextMeshProUGUI text;
 
