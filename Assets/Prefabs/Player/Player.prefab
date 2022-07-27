@@ -313,7 +313,8 @@ MonoBehaviour:
   maxChargeTime: 3
   defaultPower: 1
   maxPower: 3
-  knockback: 20
+  timeBeforeRestore: 0.5
+  knockback: 30
 --- !u!114 &6503395792001882468
 MonoBehaviour:
   m_ObjectHideFlags: 0

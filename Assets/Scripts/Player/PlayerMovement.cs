@@ -55,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!impulsed)
             rb.velocity = velocity;
-        else if (!pController.pState.GetValue("charging"))
+        else if (!pController.pState.GetValue("charging") && Mathf.Abs(rb.velocity.x) <= 15)
             rb.AddForce(Vector2.right * Direction * speed * 100);
         if (impulsed && Time.time >= timeImpulsed && pController.pState.GetValue("grounded"))
             impulsed = false;
