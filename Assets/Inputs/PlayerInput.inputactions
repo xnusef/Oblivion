@@ -33,21 +33,21 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Attack",
+                    "name": "KnifeToEnemy",
                     "type": "Button",
                     "id": "e0852063-056f-400e-9f7e-48cc453b1b99",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press(behavior=2)",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Parry",
+                    "name": "KnifeToMouse",
                     "type": "Button",
                     "id": "84647457-8cc1-4bdb-964c-4b4dd8682fa1",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 },
                 {
@@ -143,18 +143,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Attack",
+                    "action": "KnifeToEnemy",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "e67eb5cf-29c1-4a27-bb1d-006e969c1307",
-                    "path": "",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Parry",
+                    "action": "KnifeToMouse",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

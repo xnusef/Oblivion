@@ -9,13 +9,13 @@ public class PlayerManager : MonoBehaviour
     private GameObject player;
     private PlayerController playerController;
 
-    private void Start()
+    void Start()
     {
         InputManager.IM.PM = this;
-        SpawnPlayer();
+        spawnPlayer();
     }
 
-    private void SpawnPlayer()
+    private void spawnPlayer()
     {
         vcam = GameObject.Find("CineMachineCamera").GetComponent<CinemachineVirtualCamera>();
 
@@ -38,9 +38,11 @@ public class PlayerManager : MonoBehaviour
                 break;
             case "Drop":
                 break;
-            case "Attack":
+            case "KnifeToEnemy":
+                playerController.pAttack.KnifeToEnemy(value);
                 break;
-            case "Parry":
+            case "KnifeToMouse":
+                playerController.pAttack.KnifeToMouse();
                 break;
             case "Pause":
                 break;
