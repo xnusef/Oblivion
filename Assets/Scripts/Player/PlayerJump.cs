@@ -20,19 +20,21 @@ public class PlayerJump : MonoBehaviour
 
     void Update()
     {
-        CheckGround();
+        checkGround();
     }
 
-    private void CheckGround()
+    private void checkGround()
     {
         bool grounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundLayer);
-        if (pController.pState.GetGrounded() != grounded)
-            pController.pState.SetGrounded(grounded);
+        if (grounded)
+            pController.pAttack.RestoreKnifes();
+        if (pController.pState.GetValue("grounded") != grounded)
+            pController.pState.SetValue("grounded", grounded);
     }
 
     public void Jump()
     {
-        if (pController.pState.GetGrounded())
+        if (pController.pState.GetValue("grounded"))
             rb.velocity = new Vector2(rb.velocity.x, jumpHeight);
     }
 }

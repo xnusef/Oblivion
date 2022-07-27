@@ -30,14 +30,14 @@ public class InputManager : MonoBehaviour
         PM.ReceiveInput("Drop", 0);
     }
 
-    void OnAttack()
+    void OnKnifeToEnemy(InputValue value)
     {
-        PM.ReceiveInput("Attack", 0);
+        PM.ReceiveInput("KnifeToEnemy", int.Parse(value.Get().ToString()));
     }
 
-    void OnParry()
+    void OnKnifeToMouse(InputValue value)
     {
-        PM.ReceiveInput("Parry", 0);
+        PM.ReceiveInput("KnifeToMouse", 0);
     }
 
     void OnPause()
