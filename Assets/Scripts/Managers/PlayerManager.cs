@@ -17,7 +17,7 @@ public class PlayerManager : MonoBehaviour
 
     private void spawnPlayer()
     {
-        vcam = GameObject.Find("CineMachineCamera").GetComponent<CinemachineVirtualCamera>();
+        //vcam = GameObject.Find("CineMachineCamera").GetComponent<CinemachineVirtualCamera>();
 
         player = GameObject.Instantiate(playerPrefab, spawnPosition.position, Quaternion.identity);
         player.transform.SetParent(this.transform);
