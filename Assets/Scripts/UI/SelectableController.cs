@@ -1,29 +1,39 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
-using TMPro;
 
-public class SelectableController : MonoBehaviour, IPointerExitHandler, IPointerEnterHandler
+public class SelectableController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, ISelectHandler, IDeselectHandler
 {
-    private TextMeshProUGUI text;
 
-    private void Start()
+    private UINavigationManager navigationManager;
+
+    private void Awake()
     {
-        text = transform.GetComponentInChildren<TextMeshProUGUI>();
+        navigationManager = transform.GetComponentInParent<UINavigationManager>();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Focus(true);
+        navigationManager.SetSelected(this.gameObject);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        Focus(false);
+        OnDeselect(eventData);
     }
 
-    public void Focus(bool focus)
+    public void OnSelect(BaseEventData eventData)
     {
-        if (focus) text.fontMaterial.SetFloat(ShaderUtilities.ID_FaceDilate, .27f);
-        else text.fontMaterial.SetFloat(ShaderUtilities.ID_FaceDilate, .07f);
+        navigationManager.SetSelected(this.gameObject);
+        navigationManager.OnSelectedChange(this.gameObject);
+    }
+
+    public void OnDeselect(BaseEventData eventData)
+    {
+        navigationManager.SetDeselected(this.gameObject);
+    }
+
+    private void OnDisable()
+    {
+        navigationManager.SetDeselected(this.gameObject);
     }
 }
