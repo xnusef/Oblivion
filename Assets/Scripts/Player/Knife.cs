@@ -32,8 +32,8 @@ public class Knife : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        //if (col.gameObject.tag.Equals("Enemy"))
-            //col.gameObject.GetComponent<EnemyHealth>().TakeDamage(damage * power);
+        if (col.gameObject.tag.Equals("Enemy"))
+            col.gameObject.GetComponent<EnemyHealth>().TakeDamage(damage * power);
         colisioned = true;
         Destroy(this.gameObject);
     }
