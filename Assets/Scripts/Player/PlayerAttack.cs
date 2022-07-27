@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -67,9 +68,21 @@ public class PlayerAttack : MonoBehaviour
             knifes -= 1;
             pController.pState.SetValue("charging", false);
             clickReleased = true;
-            Vector2 point = cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            shoot(point);
+            shoot(getNearestEnemy());
         }
+    }
+
+    private Vector3 getNearestEnemy()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        if (enemies.Length <= 0)
+            return cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+
+        GameObject nearestEnemy = enemies[0];
+        foreach (GameObject enemy in enemies)
+            if (Vector2.Distance(enemy.transform.position, this.transform.position) < Vector2.Distance(nearestEnemy.transform.position, this.transform.position))
+                nearestEnemy = enemy;
+        return nearestEnemy.transform.position;
     }
 
     public void KnifeToMouse()
@@ -78,8 +91,7 @@ public class PlayerAttack : MonoBehaviour
         {
             knifes -= 1;
             power = defaultPower;
-            Vector2 point = cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            shoot(point);
+            shoot(cam.ScreenToWorldPoint(Mouse.current.position.ReadValue()));
         }
     }
 
